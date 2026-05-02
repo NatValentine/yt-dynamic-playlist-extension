@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "YT Dynamic Playlist",
+  "version": "1.0",
+  "description": "Manage YouTube tabs as a dynamic playlist.",
+  
+  "permissions": [
+    "tabs",
+    "storage",
+    "*://www.youtube.com/*"
+  ],
+
+  "browser_action": {
+    "default_title": "YT Playlist",
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/watch*"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "applications": {
+    "gecko": {
+      "id": "ytplaylist@local"
+    }
+  }
+}

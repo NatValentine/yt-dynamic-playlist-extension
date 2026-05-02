@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 350px;
+    padding: 10px;
+    margin: 0;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+.empty {
+    color: #777;
+    padding: 10px 0;
+}
+
+.video {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.video:hover {
+    background: #f3f3f3;
+}
+
+.video strong {
+    font-size: 14px;
+}
+
+.video div:nth-child(2) {
+    color: #666;
+    font-size: 12px;
+}
+
+.video div:nth-child(3) {
+    color: #999;
+    font-size: 12px;
+}
+
+.current {
+    color: red;
+}
