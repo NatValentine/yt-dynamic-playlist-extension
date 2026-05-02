@@ -1,3 +1,24 @@
+async function initToggle() {
+  const toggle = document.getElementById("autoplayToggle");
+
+  if (!toggle) {
+    console.log("toggle not found");
+    return;
+  }
+
+  const data = await browser.storage.local.get("enabled");
+
+  toggle.checked = data.enabled === undefined ? true : data.enabled;
+
+  toggle.addEventListener("change", async () => {
+    await browser.storage.local.set({
+      enabled: toggle.checked,
+    });
+
+    console.log("saved:", toggle.checked);
+  });
+}
+
 async function loadTabs() {
   const tabs = await browser.tabs.query({});
   const ytTabs = tabs.filter(
@@ -44,6 +65,7 @@ async function loadTabs() {
     list.appendChild(item);
   }
 }
-
-loadTabs();
-setInterval(loadTabs, 1000);
+document.addEventListener("DOMContentLoaded", () => {
+  initToggle();
+  loadTabs();
+});

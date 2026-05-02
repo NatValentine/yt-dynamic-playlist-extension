@@ -42,3 +42,12 @@ h1 {
 .current {
     color: red;
 }
+
+.toggle {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    accent-color: red;
+}

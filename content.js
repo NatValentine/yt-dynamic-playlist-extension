@@ -21,7 +21,56 @@ browser.runtime.onMessage.addListener((msg) => {
       playing,
     });
   }
+
+  if (msg.type === "PLAY_VIDEO") {
+    tryPlay();
+  }
 });
+
+attachEndedListener();
+
+function attachEndedListener() {
+  const interval = setInterval(() => {
+    const video = document.querySelector("video");
+
+    if (video) {
+      clearInterval(interval);
+
+      video.addEventListener("ended", () => {
+        browser.runtime.sendMessage({
+          type: "VIDEO_ENDED",
+        });
+      });
+    }
+  }, 500);
+}
+
+function tryPlay() {
+  let attempts = 0;
+
+  const interval = setInterval(async () => {
+    const video = document.querySelector("video");
+
+    if (video) {
+      try {
+        await video.play();
+
+        if (!video.paused && video.readyState >= 2) {
+          clearInterval(interval);
+          return;
+        }
+      } catch (error) {
+        console.error("Error trying to play video:", error);
+      }
+    }
+
+    attempts++;
+
+    if (attempts > 12) {
+      clearInterval(interval);
+    }
+  }, 500);
+}
 
 function formatTime(seconds) {
   if (!seconds || isNaN(seconds)) return "--:--";
