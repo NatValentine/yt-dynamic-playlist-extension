@@ -20,6 +20,7 @@ I'm in the habit of going through my subscriptions feed and opening videos that 
 
 ## Installation
 Load temporarily via about:debugging
+
 Coming soon to Firefox Add-ons store
 
 ## Important Note
