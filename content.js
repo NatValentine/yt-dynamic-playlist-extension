@@ -23,18 +23,18 @@ browser.runtime.onMessage.addListener((msg) => {
   }
 
   if (msg.type === "PLAY_VIDEO") {
-    tryPlay();
+    return tryPlay();
   }
 });
 
 attachEndedListener();
 
 function attachEndedListener() {
-  const interval = setInterval(() => {
+  setInterval(() => {
     const video = document.querySelector("video");
 
-    if (video) {
-      clearInterval(interval);
+    if (video && !video.dataset.endedBound) {
+      video.dataset.endedBound = "true";
 
       video.addEventListener("ended", () => {
         browser.runtime.sendMessage({
@@ -42,7 +42,7 @@ function attachEndedListener() {
         });
       });
     }
-  }, 500);
+  }, 1000);
 }
 
 function tryPlay() {
@@ -52,22 +52,26 @@ function tryPlay() {
     const video = document.querySelector("video");
 
     if (video) {
+      console.log("video found, trying to play...");
+
       try {
         await video.play();
 
-        if (!video.paused && video.readyState >= 2) {
-          clearInterval(interval);
-          return;
-        }
+        setTimeout(() => {
+          if (!video.paused && !video.ended) {
+            clearInterval(interval);
+          }
+        }, 300);
       } catch (error) {
-        console.error("Error trying to play video:", error);
+        console.log("play blocked, retrying...");
       }
     }
 
     attempts++;
 
-    if (attempts > 12) {
+    if (attempts > 20) {
       clearInterval(interval);
+      console.log("could not autoplay");
     }
   }, 500);
 }

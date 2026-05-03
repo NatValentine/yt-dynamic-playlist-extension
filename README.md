@@ -20,3 +20,10 @@ I'm in the habit of going through my subscriptions feed and opening videos that 
 
 ## Installation
 Load temporarily via about:debugging
+Coming soon to Firefox Add-ons store
+
+## Important Note
+Firefox may block automatic playback on the next tab due to browser autoplay policies. For the best experience, allow autoplay for YouTube: 
+```
+Settings → Privacy & Security → Autoplay → Allow Audio and Video for youtube.com
+```
