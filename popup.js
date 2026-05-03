@@ -26,10 +26,12 @@ async function loadTabs() {
   );
 
   const list = document.getElementById("list");
-  list.innerHTML = "";
+  list.replaceChildren();
 
   if (ytTabs.length === 0) {
-    list.innerHTML = "No YouTube tabs open.";
+    const empty = document.createElement("div");
+    empty.textContent = "No YouTube tabs open.";
+    list.appendChild(empty);
     return;
   }
 
@@ -48,14 +50,24 @@ async function loadTabs() {
     } catch (e) {}
 
     const item = document.createElement("div");
-
     item.className = info.playing ? "video current" : "video";
 
-    item.innerHTML = `
-    <div><strong>${info.playing ? "▶ " : ""}${info.title}</strong></div>
-    <div>${info.channel}</div>
-    <div>${info.duration}</div>
-    `;
+    const titleDiv = document.createElement("div");
+    const strong = document.createElement("strong");
+
+    strong.textContent = (info.playing ? "▶ " : "") + info.title;
+
+    titleDiv.appendChild(strong);
+
+    const channelDiv = document.createElement("div");
+    channelDiv.textContent = info.channel;
+
+    const durationDiv = document.createElement("div");
+    durationDiv.textContent = info.duration;
+
+    item.appendChild(titleDiv);
+    item.appendChild(channelDiv);
+    item.appendChild(durationDiv);
 
     item.addEventListener("click", async () => {
       await browser.tabs.update(tab.id, { active: true });
