@@ -19,9 +19,9 @@ I'm in the habit of going through my subscriptions feed and opening videos that 
 - HTML/CSS
 
 ## Installation
-Load temporarily via about:debugging
+[Get it from the Firefox Add-ons store](https://addons.mozilla.org/es-AR/firefox/addon/yt-dynamic-playlist/)
 
-Coming soon to Firefox Add-ons store
+or load temporarily via about:debugging
 
 ## Important Note
 Firefox may block automatic playback on the next tab due to browser autoplay policies. For the best experience, allow autoplay for YouTube: 
